@@ -22,22 +22,23 @@ namespace RentACar.Business.Concrete
         public IResult Add(Car car)
         {
             _carDal.Add(car);
-            return new ErrorResult(Messages.SuccessAdd);
+            return new SuccessResult(Messages.SuccessAdd);
         }
 
         public IResult Delete(Car car)
         {
-            throw new NotImplementedException();
+            _carDal.Delete(car);
+            return new SuccessResult(Messages.SuccessDelete);
         }
 
         public IDataResult<List<Car>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.SuccessListed);
         }
 
         public IDataResult<Car> GetByBrandId(int BrandId)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Car>(_carDal.Get(x=>x.BrandId==BrandId),Messages.SuccessListed);
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
@@ -47,7 +48,8 @@ namespace RentACar.Business.Concrete
 
         public IResult Update(Car car)
         {
-            throw new NotImplementedException();
+            _carDal.Update(car);
+            return new SuccessResult(Messages.SuccessUpdate);
         }
     }
 }
