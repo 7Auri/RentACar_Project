@@ -6,6 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using RentACar.Business.Abstract;
+using RentACar.Business.Concrete;
+using RentACar.DataAccess.Abstract;
+using RentACar.DataAccess.Concrete.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +31,9 @@ namespace RentACar.WebApi
         {
 
             services.AddControllers();
+
+           
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RentACar.WebApi", Version = "v1" });

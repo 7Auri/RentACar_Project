@@ -1,5 +1,9 @@
-﻿using RentACar.Business.Abstract;
+﻿using FluentValidation;
+using RentACar.Business.Abstract;
 using RentACar.Business.Constants;
+using RentACar.Business.ValidationRules.FluentValidation;
+using RentACar.Core.Aspects.Autofac.Validation;
+using RentACar.Core.CrossCuttingConcerns.Validation;
 using RentACar.Core.Utilities.Result;
 using RentACar.DataAccess.Abstract;
 using RentACar.Entities;
@@ -12,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Business.Concrete
 {
+    
     public class CarManager : ICarService
     {
         ICarDal _carDal;
@@ -19,8 +24,12 @@ namespace RentACar.Business.Concrete
         {
             _carDal = carDal;
         }
+
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
+            ValidationTool.Validate(new CarValidator(),car);
+
             _carDal.Add(car);
             return new SuccessResult(Messages.SuccessAdd);
         }
@@ -41,11 +50,17 @@ namespace RentACar.Business.Concrete
             return new SuccessDataResult<Car>(_carDal.Get(x=>x.BrandId==BrandId),Messages.SuccessListed);
         }
 
+        public IDataResult<Car> GetById(int id)
+        {
+            return new SuccessDataResult<Car>(_carDal.Get(x => x.Id == id), Messages.SuccessListed);
+        }
+
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.SuccessListed);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
             _carDal.Update(car);

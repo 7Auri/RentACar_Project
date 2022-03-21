@@ -1,5 +1,7 @@
 ﻿using RentACar.Business.Abstract;
 using RentACar.Business.Constants;
+using RentACar.Business.ValidationRules.FluentValidation;
+using RentACar.Core.Aspects.Autofac.Validation;
 using RentACar.Core.Utilities.Result;
 using RentACar.DataAccess.Abstract;
 using RentACar.Entities.Concrete;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Business.Concrete
 {
+    
     public class ColorManager : IColorService
     {
         IColorDal _colorDal;
@@ -20,6 +23,7 @@ namespace RentACar.Business.Concrete
             _colorDal = colorDal;
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
             _colorDal.Add(color);
@@ -42,6 +46,7 @@ namespace RentACar.Business.Concrete
             return new SuccessDataResult<Color>(_colorDal.Get(x => x.Id == id), Messages.SuccessListed);
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Update(Color color)
         {
             _colorDal.Update(color);

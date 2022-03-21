@@ -1,5 +1,7 @@
 ﻿using RentACar.Business.Abstract;
 using RentACar.Business.Constants;
+using RentACar.Business.ValidationRules.FluentValidation;
+using RentACar.Core.Aspects.Autofac.Validation;
 using RentACar.Core.Utilities.Result;
 using RentACar.DataAccess.Abstract;
 using RentACar.Entities.Concrete;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Business.Concrete
 {
+    
     public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
@@ -20,6 +23,7 @@ namespace RentACar.Business.Concrete
             _rentalDal = rentalDal;
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
             _rentalDal.Add(rental);
@@ -42,6 +46,7 @@ namespace RentACar.Business.Concrete
             return new SuccessDataResult<Rental>(_rentalDal.Get(x => x.Id == id), Messages.SuccessListed);
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);

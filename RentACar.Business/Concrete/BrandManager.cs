@@ -1,5 +1,7 @@
 ﻿using RentACar.Business.Abstract;
 using RentACar.Business.Constants;
+using RentACar.Business.ValidationRules.FluentValidation;
+using RentACar.Core.Aspects.Autofac.Validation;
 using RentACar.Core.Utilities.Result;
 using RentACar.DataAccess.Abstract;
 using RentACar.Entities.Concrete;
@@ -7,6 +9,7 @@ using System.Collections.Generic;
 
 namespace RentACar.Business.Concrete
 {
+    
     public class BrandManager : IBrandService
     {
         IBrandDal _brandDal;
@@ -15,6 +18,7 @@ namespace RentACar.Business.Concrete
             _brandDal = brandDal;
         }
 
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
@@ -37,6 +41,7 @@ namespace RentACar.Business.Concrete
             return new SuccessDataResult<Brand>(_brandDal.Get(x => x.Id == id), Messages.SuccessListed);
         }
 
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
