@@ -20,8 +20,8 @@ namespace RentACar.Business.Constants
         public static string SuccessListed = "Listing successful";
         public static string ErrorListed = "Listing failed";
 
-       /* public static string BrandNameInvalid = "Marka adı geçersiz. En az 2 karakterli olmalı";
-        public static string RentalCarNotAvailable = "Araba şu an başkasına hizmet vermektedir.";*/
+       public static string BrandNameAlreadyExist = "This brand name already exists.";
+        /* public static string RentalCarNotAvailable = "Araba şu an başkasına hizmet vermektedir.";*/
 
     }
 }
