@@ -1,4 +1,5 @@
-﻿using RentACar.Core.Utilities.Result;
+﻿using RentACar.Core.Entities.Concrete;
+using RentACar.Core.Utilities.Result;
 using RentACar.Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,8 @@ namespace RentACar.Business.Abstract
 {
     public interface IUserService
     {
-        IDataResult<List<User>> GetAll();
-        IDataResult<User> GetById(int id);
+        IDataResult<List<OperationClaim>> GetClaims(User user);
         IResult Add(User user);
-        IResult Update(User user);
-        IResult Delete(User user);
+        IDataResult<User> GetByMail(string email);
     }
 }

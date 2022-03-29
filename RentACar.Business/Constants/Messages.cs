@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RentACar.Business.Constants
+﻿namespace RentACar.Business.Constants
 {
     public static class Messages
     {
@@ -20,7 +14,18 @@ namespace RentACar.Business.Constants
         public static string SuccessListed = "Listing successful";
         public static string ErrorListed = "Listing failed";
 
-       public static string BrandNameAlreadyExist = "This brand name already exists.";
+        public static string BrandNameAlreadyExist = "This brand name already exists.";
+
+        public static string SuccessImageUpload = "Image uploaded successfully";
+        public static string AuthorizationDenied = "You are not authorized";
+
+        public static string SuccessToken = "Token Created";
+        public static string ErrorUser = "User available";
+        public static string SuccessLogin = "Successful login";
+        public static string SuccessRegister= "Successful register";
+        public static string ErrorPassword = "Password is wrong";
+        public static string ErrorNotUser = "User not found";
+        public static string ErrorHaveUser = "User exists";
         /* public static string RentalCarNotAvailable = "Araba şu an başkasına hizmet vermektedir.";*/
 
     }

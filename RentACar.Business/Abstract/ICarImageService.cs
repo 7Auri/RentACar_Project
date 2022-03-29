@@ -1,6 +1,18 @@
-﻿namespace RentACar.Business.Abstract
+﻿using Microsoft.AspNetCore.Http;
+using RentACar.Core.Utilities.Result;
+using RentACar.Entities.Concrete;
+using System.Collections.Generic;
+
+namespace RentACar.Business.Abstract
 {
     public interface ICarImageService
     {
+        IResult Add(IFormFile file, CarImage carImage);
+        IResult Delete(CarImage carImage);
+        IResult Update(IFormFile file, CarImage carImage);
+
+        IDataResult<List<CarImage>> GetAll();
+        IDataResult<List<CarImage>> GetByCarId(int carId);
+        IDataResult<CarImage> GetByImageId(int imageId);
     }
 }

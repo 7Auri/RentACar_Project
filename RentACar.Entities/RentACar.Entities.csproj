@@ -5,11 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RentACar.Core\RentACar.Core.csproj" />
+    <Folder Include="Abstract\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Abstract\" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RentACar.Core\RentACar.Core.csproj" />
   </ItemGroup>
 
 </Project>

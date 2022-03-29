@@ -1,7 +1,5 @@
 ﻿using RentACar.Business.Abstract;
-using RentACar.Business.Constants;
-using RentACar.Business.ValidationRules.FluentValidation;
-using RentACar.Core.Aspects.Autofac.Validation;
+using RentACar.Core.Entities.Concrete;
 using RentACar.Core.Utilities.Result;
 using RentACar.DataAccess.Abstract;
 using RentACar.Entities.Concrete;
@@ -13,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Business.Concrete
 {
-    
+
     public class UserManager : IUserService
     {
         IUserDal _userDal;
@@ -22,34 +20,21 @@ namespace RentACar.Business.Concrete
         {
             _userDal = userDal;
         }
-        [ValidationAspect(typeof(UserValidator))]
+
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
+        {
+            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
+        }
+
         public IResult Add(User user)
         {
             _userDal.Add(user);
-            return new SuccessResult(Messages.SuccessAdd);
+            return new SuccessResult();
         }
 
-        public IResult Delete(User user)
+        public IDataResult<User> GetByMail(string email)
         {
-            _userDal.Delete(user);
-            return new SuccessResult(Messages.SuccessDelete);
-        }
-
-        public IDataResult<List<User>> GetAll()
-        {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.SuccessListed);
-        }
-
-        public IDataResult<User> GetById(int id)
-        {
-           
-            return new SuccessDataResult<User>(_userDal.Get(x => x.Id == id), Messages.SuccessListed);
-        }
-        [ValidationAspect(typeof(UserValidator))]
-        public IResult Update(User user)
-        {
-            _userDal.Update(user);
-            return new SuccessResult(Messages.SuccessUpdate);
+            return new SuccessDataResult<User>(_userDal.GetAll(u => u.Email == email).FirstOrDefault());
         }
     }
 }

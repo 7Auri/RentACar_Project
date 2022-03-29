@@ -19,10 +19,12 @@ namespace RentACar.WebApi.Controllers
         {
             _userService = userService;
         }
-        [HttpGet]
-        public IActionResult GetAll()
+        
+
+        [HttpGet("GetByUserEmail")]
+        public IActionResult GetByUserEmail(string email)
         {
-            var result = _userService.GetAll();
+            var result = _userService.GetByMail(email);
             if (result.Success)
             {
                 return Ok(result);
@@ -30,18 +32,7 @@ namespace RentACar.WebApi.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("id")]
-        public IActionResult GetById(int id)
-        {
-            var result = _userService.GetById(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-
-        }
-
+       
         [HttpPost]
         public IActionResult Add(User user)
         {
@@ -53,27 +44,5 @@ namespace RentACar.WebApi.Controllers
             return BadRequest(result);
         }
 
-        [HttpPut]
-        public IActionResult Update(User user)
-        {
-            var result = _userService.Update(user);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-
-        }
-
-        [HttpDelete]
-        public IActionResult Delete(User user)
-        {
-            var result = _userService.Delete(user);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
     }
 }
