@@ -6,11 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using RentACar.Core.DependencyResolvers;
+using RentACar.Core.Extensions;
 using RentACar.Core.Utilities.IoC;
 using RentACar.Core.Utilities.Security.Encryption;
 using RentACar.Core.Utilities.Security.Jwt;
-using System;
-using System.Text;
 
 namespace RentACar.WebApi
 {
@@ -47,7 +47,9 @@ namespace RentACar.WebApi
                 });
 
 
-            
+            services.AddDependencyResolvers(new ICoreModule[] {
+              new CoreModule()
+            });
 
 
             services.AddSwaggerGen(c =>
