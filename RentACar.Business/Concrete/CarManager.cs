@@ -3,6 +3,9 @@ using RentACar.Business.Abstract;
 using RentACar.Business.BusinessAspects.Autofac;
 using RentACar.Business.Constants;
 using RentACar.Business.ValidationRules.FluentValidation;
+using RentACar.Core.Aspects.Autofac.Caching;
+using RentACar.Core.Aspects.Autofac.Performance;
+using RentACar.Core.Aspects.Autofac.Transaction;
 using RentACar.Core.Aspects.Autofac.Validation;
 using RentACar.Core.CrossCuttingConcerns.Validation;
 using RentACar.Core.Utilities.Result;
@@ -28,6 +31,7 @@ namespace RentACar.Business.Concrete
 
         [SecuredOperation("admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
            
@@ -36,12 +40,25 @@ namespace RentACar.Business.Concrete
             return new SuccessResult(Messages.SuccessAdd);
         }
 
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Car car)
+        {
+            Add(car);
+            if (car.DailyPrice<10)
+            {
+                throw new Exception("");
+            }
+            Add(car);
+            return null;
+        }
+
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
             return new SuccessResult(Messages.SuccessDelete);
         }
 
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.SuccessListed);
@@ -52,6 +69,8 @@ namespace RentACar.Business.Concrete
             return new SuccessDataResult<Car>(_carDal.Get(x=>x.BrandId==BrandId),Messages.SuccessListed);
         }
 
+        [CacheAspect]
+        [PerformanceAspect(7)]
         public IDataResult<Car> GetById(int id)
         {
             return new SuccessDataResult<Car>(_carDal.Get(x => x.Id == id), Messages.SuccessListed);
@@ -63,6 +82,7 @@ namespace RentACar.Business.Concrete
         }
 
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {
             _carDal.Update(car);

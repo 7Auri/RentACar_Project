@@ -18,5 +18,6 @@ namespace RentACar.Business.Abstract
         IDataResult<Car> GetByBrandId(int BrandId);
         IDataResult<Car> GetById(int id);
         IDataResult<List<CarDetailDto>> GetCarDetails();
+        IResult AddTransactionalTest(Car car);
     }
 }
