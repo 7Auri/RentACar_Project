@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using RentACar.Core.Entities.Concrete;
 using RentACar.Entities.Concrete;
 using System;
 using System.Collections.Generic;

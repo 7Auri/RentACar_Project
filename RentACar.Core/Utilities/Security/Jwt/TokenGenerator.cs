@@ -10,7 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using RentACar.Entities.Concrete;
+
 
 namespace RentACar.Core.Utilities.Security.Jwt
 {

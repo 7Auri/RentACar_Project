@@ -1,4 +1,5 @@
-﻿using RentACar.Core.Utilities.Result;
+﻿using RentACar.Core.Entities.Concrete;
+using RentACar.Core.Utilities.Result;
 using RentACar.Core.Utilities.Security.Jwt;
 using RentACar.Entities.Concrete;
 using RentACar.Entities.DTOs;
